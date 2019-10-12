@@ -1,4 +1,4 @@
-package agh.cs.lab3;
+package main.agh.cs.lab3;
 
 import java.util.Arrays;
 
