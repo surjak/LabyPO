@@ -1,5 +1,6 @@
 package main.agh.cs.lab3;
 
+import main.agh.cs.lab4.RectangularMap;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,45 +9,45 @@ class CarTest {
 
     @Test
     void move() {
-        Car car = new Car();
+        Car car = new Car(new RectangularMap(5,5));
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Polnoc, position=(2,3)");
+        assertEquals(car.toString(), "N");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Polnoc, position=(2,4)");
+        assertEquals(car.toString(), "N");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Polnoc, position=(2,4)");
+        assertEquals(car.toString(), "N");
         car.move(MoveDirection.LEFT);
-        assertEquals(car.toString(), "direction=Zachod, position=(2,4)");
+        assertEquals(car.toString(), "W");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Zachod, position=(1,4)");
+        assertEquals(car.toString(), "W");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Zachod, position=(0,4)");
+        assertEquals(car.toString(), "W");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Zachod, position=(0,4)");
+        assertEquals(car.toString(), "W");
         car.move(MoveDirection.RIGHT);
-        assertEquals(car.toString(), "direction=Polnoc, position=(0,4)");
+        assertEquals(car.toString(), "N");
         car.move(MoveDirection.BACKWARD);
-        assertEquals(car.toString(), "direction=Polnoc, position=(0,3)");
+        assertEquals(car.toString(), "N");
         car.move(MoveDirection.RIGHT);
         car.move(MoveDirection.RIGHT);
-        assertEquals(car.toString(), "direction=Poludnie, position=(0,3)");
+        assertEquals(car.toString(), "S");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Poludnie, position=(0,2)");
+        assertEquals(car.toString(), "S");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Poludnie, position=(0,1)");
+        assertEquals(car.toString(), "S");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Poludnie, position=(0,0)");
+        assertEquals(car.toString(), "S");
         car.move(MoveDirection.FORWARD);
-        assertEquals(car.toString(), "direction=Poludnie, position=(0,0)");
+        assertEquals(car.toString(), "S");
         car.move(MoveDirection.RIGHT);
-        assertEquals(car.toString(), "direction=Zachod, position=(0,0)");
+        assertEquals(car.toString(), "W");
         car.move(MoveDirection.BACKWARD);
         car.move(MoveDirection.BACKWARD);
         car.move(MoveDirection.BACKWARD);
         car.move(MoveDirection.BACKWARD);
-        assertEquals(car.toString(), "direction=Zachod, position=(4,0)");
+        assertEquals(car.toString(), "W");
         car.move(MoveDirection.BACKWARD);
-        assertEquals(car.toString(), "direction=Zachod, position=(4,0)");
+        assertEquals(car.toString(), "W");
 
 
     }
