@@ -1,2 +1,2 @@
 # LabyPO
-Repozytorium z zadaniami z laboratoriów z Programowania Obiektowego w Javie
+Projekt z przedmiotu Programowanie Obiektowe realizowany w trakcie zajęć.
