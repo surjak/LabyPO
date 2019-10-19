@@ -1,2 +1,8 @@
 # LabyPO
-Projekt z przedmiotu Programowanie Obiektowe realizowany w trakcie zajęć.
+Projekty z przedmiotu Programowanie Obiektowe realizowane w ramach zajęć.
+
+#PlanZajec
+Projekt realizowany w trakcie laboratoriów
+
+#ProjektPO
+Projekt realizowany dodatkowo
