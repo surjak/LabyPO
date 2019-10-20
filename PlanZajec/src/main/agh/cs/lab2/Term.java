@@ -6,11 +6,13 @@ public class Term {
     public int hour;
     public int minute;
     public int duration;
+    public Day day;
 
-    public Term(int hour, int minute) {
+    public Term(int hour, int minute, Day day) {
         this.hour = hour;
         this.minute = minute;
         this.duration = 90;
+        this.day = day;
     }
 
     @Override
@@ -32,14 +34,21 @@ public class Term {
 
     public Term endTerm(Term term) {
         int dur = term.getMinutes() - this.getMinutes();
-        Term term1 = new Term(this.hour, this.minute);
+        Term term1 = new Term(this.hour, this.minute, this.day);
         term1.duration = dur;
         return term1;
     }
 
     public Term endTerm() {
         int minutes = this.getMinutes() + this.duration;
-        Term term = new Term(minutes / 60 % 24, minutes % 60);
+        Term term = new Term(minutes / 60 % 24, minutes % 60, this.day);
+        term.duration = this.duration;
+        return term;
+    }
+
+    public Term prevTerm(){
+        int minutes = this.getMinutes() - this.duration;
+        Term term = new Term(minutes / 60 % 24, minutes % 60, this.day);
         term.duration = this.duration;
         return term;
     }
