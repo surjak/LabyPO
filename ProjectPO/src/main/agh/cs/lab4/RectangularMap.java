@@ -5,8 +5,6 @@ import main.agh.cs.lab3.MoveDirection;
 import main.agh.cs.lab3.Position;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
