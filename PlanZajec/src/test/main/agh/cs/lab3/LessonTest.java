@@ -16,14 +16,14 @@ class LessonTest {
     void setUp() {
         lessonOnFullTime = new Lesson(new Term(9, 30, Day.WED), "PO", "Stanislaw Polak", 2019, true);
         lessonOnPartTime = new Lesson(new Term(15, 30, Day.SAT), "PO", "Stanislaw Polak", 2019, false);
-        assertEquals(lessonOnFullTime.year, 2019);
+        assertEquals(lessonOnFullTime.getYear(), 2019);
     }
 
     @Test
     void earlierDay() {
         assertTrue(lessonOnFullTime.earlierDay());
         assertTrue(lessonOnFullTime.earlierDay());
-        assertEquals(lessonOnFullTime.term.day, Day.MON);
+        assertEquals(lessonOnFullTime.getTerm().getDay(), Day.MON);
         assertFalse(lessonOnFullTime.earlierDay());
 
         assertFalse(lessonOnPartTime.earlierDay());
@@ -37,7 +37,7 @@ class LessonTest {
     void laterDay() {
         assertTrue(lessonOnFullTime.laterDay());
         assertTrue(lessonOnFullTime.laterDay());
-        assertEquals(lessonOnFullTime.term.day, Day.FRI);
+        assertEquals(lessonOnFullTime.getTerm().getDay(), Day.FRI);
         assertFalse(lessonOnFullTime.laterDay());
     }
 
@@ -49,17 +49,17 @@ class LessonTest {
         assertTrue(lessonOnFullTime.laterTime());
         assertTrue(lessonOnFullTime.laterTime());
         assertTrue(lessonOnFullTime.laterTime());
-        assertEquals(lessonOnFullTime.term.hour, 18);
-        assertEquals(lessonOnFullTime.term.minute, 30);
-        lessonOnFullTime.term.duration = 30;
+        assertEquals(lessonOnFullTime.getTerm().getHour(), 18);
+        assertEquals(lessonOnFullTime.getTerm().getMinute(), 30);
+        lessonOnFullTime.getTerm().setDuration(30);
         assertTrue(lessonOnFullTime.laterTime());
     }
 
     @Test
     void earlierTime() {
         assertTrue(lessonOnFullTime.earlierTime());
-        assertEquals(lessonOnFullTime.term.hour, 8);
-        assertEquals(lessonOnFullTime.term.minute, 0);
+        assertEquals(lessonOnFullTime.getTerm().getHour(), 8);
+        assertEquals(lessonOnFullTime.getTerm().getMinute(), 0);
         assertFalse(lessonOnFullTime.earlierTime());
     }
 }

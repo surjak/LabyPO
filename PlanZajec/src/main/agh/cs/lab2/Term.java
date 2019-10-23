@@ -3,10 +3,10 @@ package main.agh.cs.lab2;
 import java.util.Objects;
 
 public class Term {
-    public int hour;
-    public int minute;
-    public int duration;
-    public Day day;
+    private int hour;
+    private int minute;
+    private int duration;
+    private Day day;
 
     public Term(int hour, int minute, Day day) {
         this.hour = hour;
@@ -60,6 +60,38 @@ public class Term {
         Term term = (Term) o;
         return hour == term.hour &&
                 minute == term.minute;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
     }
 
     @Override
