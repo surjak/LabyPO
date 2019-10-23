@@ -3,6 +3,8 @@ package main.agh.cs.lab3;
 
 import main.agh.cs.lab2.Day;
 import main.agh.cs.lab2.Term;
+import main.agh.cs.lab4.ITimetable;
+import main.agh.cs.lab4.Timetable1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,11 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class LessonTest {
     Lesson lessonOnFullTime;
     Lesson lessonOnPartTime;
+    ITimetable timetable;
 
     @BeforeEach
     void setUp() {
-        lessonOnFullTime = new Lesson(new Term(9, 30, Day.WED), "PO", "Stanislaw Polak", 2019, true);
-        lessonOnPartTime = new Lesson(new Term(15, 30, Day.SAT), "PO", "Stanislaw Polak", 2019, false);
+        timetable = new Timetable1();
+        lessonOnFullTime = new Lesson(timetable,new Term(9, 30, Day.WED), "PO", "Stanislaw Polak", 2019, true);
+        lessonOnPartTime = new Lesson(timetable,new Term(15, 30, Day.SAT), "PO", "Stanislaw Polak", 2019, false);
         assertEquals(lessonOnFullTime.getYear(), 2019);
     }
 

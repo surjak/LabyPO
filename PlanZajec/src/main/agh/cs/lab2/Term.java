@@ -59,7 +59,7 @@ public class Term {
         if (!(o instanceof Term)) return false;
         Term term = (Term) o;
         return hour == term.hour &&
-                minute == term.minute;
+                minute == term.minute && this.day.equals(term.day);
     }
 
     public int getHour() {

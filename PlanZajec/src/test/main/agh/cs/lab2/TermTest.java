@@ -43,5 +43,7 @@ class TermTest {
         Term term1 = new Term(9,45, Day.MON);
         assertTrue(term1.equals(term));
         assertFalse(term.equals(new Term(9,43, Day.MON)));
+        assertFalse(term.equals(new Term(9,45, Day.THU)));
+
     }
 }

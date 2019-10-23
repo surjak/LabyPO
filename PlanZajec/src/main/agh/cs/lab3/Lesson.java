@@ -1,16 +1,18 @@
 package main.agh.cs.lab3;
 
 import main.agh.cs.lab2.Term;
+import main.agh.cs.lab4.ITimetable;
 
 public class Lesson {
+    private ITimetable iTimetable;
     private Term term;
     private String name;
     private String teacherName;
     private int year;
     private boolean full_time;
 
-
-    public Lesson(Term term, String name, String teacherName, int year, boolean full_time) {
+    public Lesson(ITimetable iTimetable, Term term, String name, String teacherName, int year, boolean full_time) {
+        this.iTimetable = iTimetable;
         this.term = term;
         this.name = name;
         this.teacherName = teacherName;
@@ -18,149 +20,72 @@ public class Lesson {
         this.full_time = full_time;
     }
 
-    public boolean earlierDay() {
-        if (this.full_time) {
-            if (this.term.getDay().prevDay().ordinal() >= 0 && this.term.getDay().prevDay().ordinal() <= 4) {
-                if (this.term.getDay().prevDay().ordinal() == 4) {
-                    if (this.term.laterThan(new Term(7, 59, this.term.getDay())) && this.term.earlierThan(new Term(17, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().prevDay());
-                        return true;
-                    }
-                } else {
-                    if (this.term.laterThan(new Term(7, 59, this.term.getDay())) && this.term.earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().prevDay());
-                        return true;
-                    }
-                }
-            }
-            return false;
-        } else {
-            if (this.term.getDay().prevDay().ordinal() >= 4 && this.term.getDay().prevDay().ordinal() <= 6) {
-                if (this.term.getDay().prevDay().ordinal() == 4) {
-                    if (this.term.laterThan(new Term(16, 59, this.term.getDay())) && this.term.earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().prevDay());
-                        return true;
-                    }
-                } else {
-                    if (this.term.laterThan(new Term(7, 59, this.term.getDay())) && this.term.earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().prevDay());
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
 
+    public boolean earlierDay() {
+        Term term = new Term(this.term.getHour(), this.term.getMinute(), this.term.getDay());
+        term.setDuration(this.term.getDuration());
+        term.setDay(this.term.getDay().prevDay());
+
+        if (this.full_time) {
+            if (iTimetable.canBeTransferredTo(term, true)) {
+                this.term = term;
+                return true;
+            } else return false;
+        } else {
+            if (iTimetable.canBeTransferredTo(term, false)) {
+                this.term = term;
+                return true;
+            } else return false;
+        }
     }
 
-
     public boolean laterDay() {
+        Term term = new Term(this.term.getHour(), this.term.getMinute(), this.term.getDay());
+        term.setDuration(this.term.getDuration());
+        term.setDay(this.term.getDay().nextDay());
         if (this.full_time) {
-            if (this.term.getDay().nextDay().ordinal() >= 0 && this.term.getDay().nextDay().ordinal() <= 4) {
-                if (this.term.getDay().nextDay().ordinal() == 4) {
-                    if (this.term.laterThan(new Term(7, 59, this.term.getDay())) && this.term.earlierThan(new Term(17, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().nextDay());
-                        return true;
-                    }
-                } else {
-                    if (this.term.laterThan(new Term(7, 59, this.term.getDay())) && this.term.earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().nextDay());
-                        return true;
-                    }
-                }
-            }
-            return false;
+            if (iTimetable.canBeTransferredTo(term, true)) {
+                this.term = term;
+                return true;
+            } else return false;
         } else {
-            if (this.term.getDay().nextDay().ordinal() >= 4 && this.term.getDay().nextDay().ordinal() <= 6) {
-                if (this.term.getDay().nextDay().ordinal() == 4) {
-                    if (this.term.laterThan(new Term(16, 59, this.term.getDay())) && this.term.earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().nextDay());
-                        return true;
-                    }
-                } else {
-                    if (this.term.laterThan(new Term(7, 59, this.term.getDay())) && this.term.earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term.setDay(this.term.getDay().nextDay());
-                        return true;
-                    }
-                }
-            }
-            return false;
+            if (iTimetable.canBeTransferredTo(term, false)) {
+                this.term = term;
+                return true;
+            } else return false;
         }
-
     }
 
 
     public boolean laterTime() {
         if (this.full_time) {
-            if (this.term.getDay().ordinal() >= 0 && this.term.getDay().ordinal() <= 4) {
-                if (this.term.getDay().ordinal() == 4) {
-                    if (this.term.endTerm().laterThan(new Term(7, 59, this.term.getDay())) && this.term.endTerm().endTerm().earlierThan(new Term(17, 1, this.term.getDay()))) {
-
-                        this.term = this.term.endTerm();
-                        return true;
-                    }
-                } else {
-
-                    if (this.term.endTerm().laterThan(new Term(7, 59, this.term.getDay())) && this.term.endTerm().endTerm().earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term = this.term.endTerm();
-                        return true;
-                    }
-                }
+            if (iTimetable.canBeTransferredTo(this.term.endTerm(), true)) {
+                this.term = this.term.endTerm();
+                return true;
             }
-            return false;
         } else {
-            if (this.term.getDay().ordinal() >= 4 && this.term.getDay().ordinal() <= 6) {
-                if (this.term.getDay().ordinal() == 4) {
-                    if (this.term.endTerm().laterThan(new Term(16, 59, this.term.getDay())) && this.term.endTerm().endTerm().earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term = this.term.endTerm();
-                        return true;
-                    }
-                } else {
-                    if (this.term.endTerm().laterThan(new Term(7, 59, this.term.getDay())) && this.term.endTerm().endTerm().earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term = this.term.endTerm();
-                        return true;
-                    }
-                }
+            if (iTimetable.canBeTransferredTo(this.term.endTerm(), false)) {
+                this.term = this.term.endTerm();
+                return true;
             }
-            return false;
         }
-
+        return false;
     }
 
 
     public boolean earlierTime() {
         if (this.full_time) {
-            if (this.term.getDay().ordinal() >= 0 && this.term.getDay().ordinal() <= 4) {
-                if (this.term.getDay().ordinal() == 4) {
-                    if (this.term.prevTerm().laterThan(new Term(7, 59, this.term.getDay())) && this.term.prevTerm().endTerm().earlierThan(new Term(17, 1, this.term.getDay()))) {
-                        this.term = this.term.prevTerm();
-                        return true;
-                    }
-                } else {
-                    if (this.term.prevTerm().laterThan(new Term(7, 59, this.term.getDay())) && this.term.prevTerm().endTerm().earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term = this.term.prevTerm();
-                        return true;
-                    }
-                }
+            if (iTimetable.canBeTransferredTo(this.term.prevTerm(), true)) {
+                this.term = this.term.prevTerm();
+                return true;
             }
-            return false;
         } else {
-            if (this.term.getDay().ordinal() >= 4 && this.term.getDay().ordinal() <= 6) {
-                if (this.term.getDay().ordinal() == 4) {
-                    if (this.term.prevTerm().laterThan(new Term(16, 59, this.term.getDay())) && this.term.prevTerm().endTerm().earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term = this.term.prevTerm();
-                        return true;
-                    }
-                } else {
-                    if (this.term.prevTerm().laterThan(new Term(7, 59, this.term.getDay())) && this.term.prevTerm().endTerm().earlierThan(new Term(20, 1, this.term.getDay()))) {
-                        this.term = this.term.prevTerm();
-                        return true;
-                    }
-                }
+            if (iTimetable.canBeTransferredTo(this.term.prevTerm(), false)) {
+                this.term = this.term.prevTerm();
+                return true;
             }
-            return false;
         }
-
+        return false;
     }
 
 
@@ -202,6 +127,14 @@ public class Lesson {
 
     public void setFull_time(boolean full_time) {
         this.full_time = full_time;
+    }
+
+    public ITimetable getiTimetable() {
+        return iTimetable;
+    }
+
+    public void setiTimetable(ITimetable iTimetable) {
+        this.iTimetable = iTimetable;
     }
 
     @Override
