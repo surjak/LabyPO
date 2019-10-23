@@ -2,13 +2,10 @@ package main.agh.cs.lab4;
 
 import main.agh.cs.lab3.Car;
 import main.agh.cs.lab3.MoveDirection;
+import main.agh.cs.lab3.OptionParser;
 import main.agh.cs.lab3.Position;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +16,6 @@ class RectangularMapTest {
     @BeforeEach
     void setUp() {
         map = new RectangularMap(5, 5);
-        map.cars = new ArrayList<>();
         map.place(new Car(new Position(2, 2), map));
 
     }
@@ -30,7 +26,6 @@ class RectangularMapTest {
         assertTrue(map.canMoveTo(new Position(4, 4)));
         assertFalse(map.canMoveTo(new Position(4, 5)));
         assertFalse(map.canMoveTo(new Position(5, 4)));
-
     }
 
     @Test
@@ -43,13 +38,17 @@ class RectangularMapTest {
 
     @Test
     void run() {
+        MoveDirection[] directions = new OptionParser().parse(new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"});
+        map.place(new Car(new Position(3, 4), map));
+        map.run(directions);
+        assertNotNull(map.objectAt(new Position(3,4)));
+        assertNotNull(map.objectAt(new Position(2,0)));
     }
 
     @Test
     void isOccupied() {
         assertTrue(map.isOccupied(new Position(2, 2)));
         assertFalse(map.isOccupied(new Position(2, 1)));
-
     }
 
     @Test
