@@ -95,30 +95,59 @@ public class Timetable1 implements ITimetable {
 
     @Override
     public String toString() {
-//todo
+        StringBuilder builder = new StringBuilder();
+
+        Day firstDay1 = Day.MON;
+        Day lastDay1 = Day.SUN;
+        Day day1 = null;
+        boolean flag1 = true;
+        builder.append(("Godzina:     ").substring(0,10));
+
+        for (day1 = firstDay1; day1.compareTo(lastDay1) <= 0 && flag1; day1 = day1.nextDay()) {
+            builder.append(("  *" + day1.toString() + "        ").substring(0,10));
+            if (day1.ordinal() == 6) {
+                flag1 = false;
+            }
+        }
+        builder.append("\n");
+        for (int i = 0; i < 8; i++) {
+            builder.append("*****************".substring(0,10));
+        }
+        builder.append("\n");
+
+
         Day firstDay = Day.MON;
         Day lastDay = Day.SUN;
         Term firstTerm = new Term(8, 0, firstDay);
         Term lastTerm = new Term(20, 0, lastDay);
         Day day = null;
         Term term = null;
-        boolean flag = true;
-        for (day = firstDay; day.compareTo(lastDay) <= 0 && flag; day = day.nextDay()) {
-            System.out.println(day);
-            if (day.ordinal() == 6) {
-                flag = false;
+
+        for (term = firstTerm; term.earlierThan(lastTerm); term = term.endTerm()) {
+
+            builder.append((term.getHour()+":" + term.getMinute()+"         ").substring(0,10));
+
+            boolean flag = true;
+            for (day = firstDay; day.compareTo(lastDay) <= 0 && flag; day = day.nextDay()) {
+                Term term1 = new Term(term.getHour(), term.getMinute(), day);
+                if (day.ordinal() == 6) {
+                    flag = false;
+                }
+                if (this.busy(term1)) {
+
+                    builder.append((((Lesson) this.get(term1)).getName() + "            ").substring(0,10));
+                } else {
+                    builder.append("     *       ".substring(0,10));
+                }
+
             }
+            builder.append("\n");
             firstTerm.setDay(day);
             lastTerm.setDay(day);
-            for (term = firstTerm; term.earlierThan(lastTerm); term = term.endTerm()) {
-                System.out.print(term);
-                if (this.busy(term)) {
 
-                    System.out.println(((Lesson) this.get(term)).getName());
-                } else
-                    System.out.println(" ");
-            }
         }
-        return "";
+
+//        System.out.println(builder);
+        return builder.toString();
     }
 }
