@@ -125,7 +125,7 @@ public class Timetable1 implements ITimetable {
 
         for (term = firstTerm; term.earlierThan(lastTerm); term = term.endTerm()) {
 
-            builder.append((term.getHour()+":" + term.getMinute()+"         ").substring(0,10));
+            builder.append((term.toString()+"         ").substring(0,10));
 
             boolean flag = true;
             for (day = firstDay; day.compareTo(lastDay) <= 0 && flag; day = day.nextDay()) {

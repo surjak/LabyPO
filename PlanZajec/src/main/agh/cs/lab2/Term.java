@@ -16,8 +16,13 @@ public class Term {
     }
 
     @Override
-    public String toString() {
-        return this.hour + ":" + this.minute + " [" + this.duration + "]";
+    public String toString()
+    {
+        String minute = String.valueOf(this.minute);
+        if (this.minute<10){
+        minute = "0"+minute;
+    }
+        return this.hour + ":" + minute + " [" + this.duration + "]";
     }
 
     public boolean earlierThan(Term term) {
