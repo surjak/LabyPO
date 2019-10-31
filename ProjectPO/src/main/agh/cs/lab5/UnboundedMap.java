@@ -41,11 +41,6 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
     @Override
     public boolean isOccupied(Position position) {
         AtomicBoolean canPlace = new AtomicBoolean(false);
-//        cars.forEach(car1 -> {
-//            if (car1.getPosition().equals(position)) {
-//                canPlace.set(true);
-//            }
-//        });
         canPlace.set(super.isOccupied(position));
         hayStackList.forEach(hayStack -> {
             if (hayStack.getPosition().equals(position)) {

@@ -28,8 +28,8 @@ public abstract class AbstractWorldMap implements IWorldMap {
         for (int i = 0; i < directions.length; i++) {
             cars.get(i % carSize).move(directions[i]);
             System.out.println();
-            System.out.print(cars.get(i % carSize).getPosition());
-            System.out.print(cars.get(i % carSize));
+//            System.out.print(cars.get(i % carSize).getPosition());
+//            System.out.print(cars.get(i % carSize));
             System.out.println(this);
 
 
