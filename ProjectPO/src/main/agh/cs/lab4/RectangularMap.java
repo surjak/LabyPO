@@ -6,6 +6,7 @@ import main.agh.cs.lab3.Position;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RectangularMap implements IWorldMap {
@@ -30,16 +31,11 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean place(Car car) {
-        AtomicBoolean canPlace = new AtomicBoolean(true);
-        cars.forEach(car1 -> {
-            if (car1.getPosition().equals(car.getPosition())) {
-                canPlace.set(false);
-            }
-        });
-        if (canPlace.get()) {
+        if (!this.isOccupied(car.getPosition())) {
             cars.add(car);
+            return true;
         }
-        return canPlace.get();
+        return false;
     }
 
     @Override
