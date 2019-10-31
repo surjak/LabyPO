@@ -12,9 +12,9 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class UnboundedMap implements IWorldMap {
+public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
     private List<HayStack> hayStackList;
-    List<Car> cars = new ArrayList<>();
+
 
     public UnboundedMap(List<HayStack> hayStackList) {
         this.hayStackList = hayStackList;
@@ -30,36 +30,23 @@ public class UnboundedMap implements IWorldMap {
     @Override
     public boolean place(Car car) {
 
-        if (!this.isOccupied(car.getPosition())) {
-            cars.add(car);
-            return true;
-        }
-        return false;
+        return super.place(car);
     }
 
     @Override
     public void run(MoveDirection[] directions) {
-        int carSize = cars.size();
-        for (int i = 0; i < directions.length; i++) {
-            cars.get(i % carSize).move(directions[i]);
-            System.out.println();
-            System.out.print(cars.get(i % carSize).getPosition());
-            System.out.print(cars.get(i % carSize));
-            System.out.println(this);
-
-
-        }
-
+        super.run(directions);
     }
 
     @Override
     public boolean isOccupied(Position position) {
         AtomicBoolean canPlace = new AtomicBoolean(false);
-        cars.forEach(car1 -> {
-            if (car1.getPosition().equals(position)) {
-                canPlace.set(true);
-            }
-        });
+//        cars.forEach(car1 -> {
+//            if (car1.getPosition().equals(position)) {
+//                canPlace.set(true);
+//            }
+//        });
+        canPlace.set(super.isOccupied(position));
         hayStackList.forEach(hayStack -> {
             if (hayStack.getPosition().equals(position)) {
                 canPlace.set(true);
