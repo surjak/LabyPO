@@ -20,21 +20,22 @@ public class CarSystem {
         map.run(directions);
         System.out.println();
         System.out.println(map);
+        //second map
 
-//        ArrayList<HayStack> hayStackArrayList = new ArrayList<HayStack>();
-//        hayStackArrayList.add(new HayStack(new Position(-4, -4)));
-//        hayStackArrayList.add(new HayStack(new Position(7, 7)));
-//        hayStackArrayList.add(new HayStack(new Position(3, 6)));
-//        hayStackArrayList.add(new HayStack(new Position(2, 0)));
-//        IWorldMap map1 = new UnboundedMap(hayStackArrayList);
-//        map1.place(new Car(map1));
-//        Object obj1 = map1.objectAt(new Position(2, 2));
-//        map1.place(new Car(new Position(3, 4), map1));
-//        map1.place(new Car(new Position(2, 0), map1));
-//
-//        map1.run(directions);
-//        System.out.println();
-//        System.out.println(map1);
+        ArrayList<HayStack> hayStackArrayList = new ArrayList<HayStack>();
+        hayStackArrayList.add(new HayStack(new Position(-4, -4)));
+        hayStackArrayList.add(new HayStack(new Position(7, 7)));
+        hayStackArrayList.add(new HayStack(new Position(3, 6)));
+        hayStackArrayList.add(new HayStack(new Position(2, 0)));
+        IWorldMap map1 = new UnboundedMap(hayStackArrayList);
+        map1.place(new Car(map1));
+        Object obj1 = map1.objectAt(new Position(2, 2));
+        map1.place(new Car(new Position(3, 4), map1));
+        map1.place(new Car(new Position(2, 0), map1));
+
+        map1.run(directions);
+        System.out.println();
+        System.out.println(map1);
 
     }
 }

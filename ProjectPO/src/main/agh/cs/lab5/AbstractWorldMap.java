@@ -48,4 +48,9 @@ public abstract class AbstractWorldMap implements IWorldMap {
 
         return canPlace.get();
     }
+
+    @Override
+    public Object objectAt(Position position) {
+        return cars.stream().filter(car -> car.getPosition().equals(position)).findFirst().orElse(null);
+    }
 }

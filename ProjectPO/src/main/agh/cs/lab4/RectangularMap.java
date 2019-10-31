@@ -48,7 +48,7 @@ public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public Object objectAt(Position position) {
-        return cars.stream().filter(car -> car.getPosition().equals(position)).findFirst().orElse(null);
+        return super.objectAt(position);
     }
 
     @Override

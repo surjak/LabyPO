@@ -58,7 +58,7 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public Object objectAt(Position position) {
-        Object obj = cars.stream().filter(car -> car.getPosition().equals(position)).findFirst().orElse(null);
+        Object obj = super.objectAt(position);
         if (Objects.equals(obj, null)) {
             obj = hayStackList.stream().filter(hayStack -> hayStack.getPosition().equals(position)).findFirst().orElse(null);
 
