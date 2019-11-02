@@ -136,8 +136,8 @@ public abstract class AbstractTimetable implements ITimetable {
                 term.setDay(day);
                 res += "";
                 a = "";
-                if (this.busy(term)) {
-                    Lesson tmp = (Lesson) this.get(term);
+                Lesson tmp = (Lesson) this.get(term);
+                if (tmp != null) {
                     a += tmp.getName();
                 }
                 while (a.length() < 12) {
