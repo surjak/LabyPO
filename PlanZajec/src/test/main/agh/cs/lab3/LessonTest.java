@@ -23,47 +23,47 @@ class LessonTest {
         assertEquals(lessonOnFullTime.getYear(), 2019);
     }
 
-    @Test
-    void earlierDay() {
-        assertTrue(lessonOnFullTime.earlierDay());
-        assertTrue(lessonOnFullTime.earlierDay());
-        assertEquals(lessonOnFullTime.getTerm().getDay(), Day.MON);
-        assertFalse(lessonOnFullTime.earlierDay());
-
-        assertFalse(lessonOnPartTime.earlierDay());
-        lessonOnPartTime.laterTime();
-        lessonOnPartTime.laterTime();
-        assertTrue(lessonOnPartTime.earlierDay());
-
-    }
-
-    @Test
-    void laterDay() {
-        assertTrue(lessonOnFullTime.laterDay());
-        assertTrue(lessonOnFullTime.laterDay());
-        assertEquals(lessonOnFullTime.getTerm().getDay(), Day.FRI);
-        assertFalse(lessonOnFullTime.laterDay());
-    }
-
-    @Test
-    void laterTime() {
-        assertTrue(lessonOnFullTime.laterTime());
-        assertTrue(lessonOnFullTime.laterTime());
-        assertTrue(lessonOnFullTime.laterTime());
-        assertTrue(lessonOnFullTime.laterTime());
-        assertTrue(lessonOnFullTime.laterTime());
-        assertTrue(lessonOnFullTime.laterTime());
-        assertEquals(lessonOnFullTime.getTerm().getHour(), 18);
-        assertEquals(lessonOnFullTime.getTerm().getMinute(), 30);
-        lessonOnFullTime.getTerm().setDuration(30);
-        assertTrue(lessonOnFullTime.laterTime());
-    }
-
-    @Test
-    void earlierTime() {
-        assertTrue(lessonOnFullTime.earlierTime());
-        assertEquals(lessonOnFullTime.getTerm().getHour(), 8);
-        assertEquals(lessonOnFullTime.getTerm().getMinute(), 0);
-        assertFalse(lessonOnFullTime.earlierTime());
-    }
+//    @Test
+//    void earlierDay() {
+//        assertTrue(lessonOnFullTime.earlierDay());
+//        assertTrue(lessonOnFullTime.earlierDay());
+//        assertEquals(lessonOnFullTime.getTerm().getDay(), Day.MON);
+//        assertFalse(lessonOnFullTime.earlierDay());
+//
+//        assertFalse(lessonOnPartTime.earlierDay());
+//        lessonOnPartTime.laterTime();
+//        lessonOnPartTime.laterTime();
+//        assertTrue(lessonOnPartTime.earlierDay());
+//
+//    }
+//
+//    @Test
+//    void laterDay() {
+//        assertTrue(lessonOnFullTime.laterDay());
+//        assertTrue(lessonOnFullTime.laterDay());
+//        assertEquals(lessonOnFullTime.getTerm().getDay(), Day.FRI);
+//        assertFalse(lessonOnFullTime.laterDay());
+//    }
+//
+//    @Test
+//    void laterTime() {
+//        assertTrue(lessonOnFullTime.laterTime());
+//        assertTrue(lessonOnFullTime.laterTime());
+//        assertTrue(lessonOnFullTime.laterTime());
+//        assertTrue(lessonOnFullTime.laterTime());
+//        assertTrue(lessonOnFullTime.laterTime());
+//        assertTrue(lessonOnFullTime.laterTime());
+//        assertEquals(lessonOnFullTime.getTerm().getHour(), 18);
+//        assertEquals(lessonOnFullTime.getTerm().getMinute(), 30);
+//        lessonOnFullTime.getTerm().setDuration(30);
+//        assertTrue(lessonOnFullTime.laterTime());
+//    }
+//
+//    @Test
+//    void earlierTime() {
+//        assertTrue(lessonOnFullTime.earlierTime());
+//        assertEquals(lessonOnFullTime.getTerm().getHour(), 8);
+//        assertEquals(lessonOnFullTime.getTerm().getMinute(), 0);
+//        assertFalse(lessonOnFullTime.earlierTime());
+//    }
 }

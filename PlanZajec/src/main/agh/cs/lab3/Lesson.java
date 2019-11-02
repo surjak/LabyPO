@@ -1,18 +1,18 @@
 package main.agh.cs.lab3;
 
+import main.agh.cs.lab2.Day;
 import main.agh.cs.lab2.Term;
 import main.agh.cs.lab4.ITimetable;
 
 public class Lesson {
-    private ITimetable iTimetable;
+    private ITimetable timetable;
     private Term term;
     private String name;
     private String teacherName;
     private int year;
     private boolean full_time;
 
-    public Lesson(ITimetable iTimetable, Term term, String name, String teacherName, int year, boolean full_time) {
-        this.iTimetable = iTimetable;
+    public Lesson(Term term, String name, String teacherName, int year, boolean full_time) {
         this.term = term;
         this.name = name;
         this.teacherName = teacherName;
@@ -20,72 +20,89 @@ public class Lesson {
         this.full_time = full_time;
     }
 
-
-    public boolean earlierDay() {
-        Term term = new Term(this.term.getHour(), this.term.getMinute(), this.term.getDay());
-        term.setDuration(this.term.getDuration());
-        term.setDay(this.term.getDay().prevDay());
-
-        if (this.full_time) {
-            if (iTimetable.canBeTransferredTo(term, true)) {
-                this.term = term;
-                return true;
-            } else return false;
-        } else {
-            if (iTimetable.canBeTransferredTo(term, false)) {
-                this.term = term;
-                return true;
-            } else return false;
-        }
+    public Lesson(ITimetable timetable, Term term, String name, String teacherName, int year, boolean full_time) {
+        this.timetable = timetable;
+        this.term = term;
+        this.name = name;
+        this.teacherName = teacherName;
+        this.year = year;
+        this.full_time = full_time;
     }
 
-    public boolean laterDay() {
-        Term term = new Term(this.term.getHour(), this.term.getMinute(), this.term.getDay());
-        term.setDuration(this.term.getDuration());
-        term.setDay(this.term.getDay().nextDay());
-        if (this.full_time) {
-            if (iTimetable.canBeTransferredTo(term, true)) {
-                this.term = term;
-                return true;
-            } else return false;
-        } else {
-            if (iTimetable.canBeTransferredTo(term, false)) {
-                this.term = term;
-                return true;
-            } else return false;
-        }
+    public Lesson(ITimetable timetable, Term term, String name, String teacherName, int year) {
+        this.timetable = timetable;
+        this.term = term;
+        this.name = name;
+        this.teacherName = teacherName;
+        this.year = year;
+        this.full_time = true;
     }
 
 
-    public boolean laterTime() {
-        if (this.full_time) {
-            if (iTimetable.canBeTransferredTo(this.term.endTerm(), true)) {
-                this.term = this.term.endTerm();
-                return true;
-            }
-        } else {
-            if (iTimetable.canBeTransferredTo(this.term.endTerm(), false)) {
-                this.term = this.term.endTerm();
-                return true;
-            }
+    public Lesson earlierDay() {
+        if(timetable.canBeTransferredTo(new Term(term.getHour(), term.getMinute(), term.getDay().prevDay()), full_time)) {
+            this.term.setDay(term.getDay().prevDay());
+            return this;
         }
-        return false;
+        throw new IllegalArgumentException();
+    }
+
+    public Lesson laterDay() {
+        if(timetable.canBeTransferredTo(new Term(term.getHour(), term.getMinute(), term.getDay().nextDay()), full_time)) {
+            this.term.setDay(term.getDay().nextDay());
+            return this;
+        }
+        throw new IllegalArgumentException();
     }
 
 
-    public boolean earlierTime() {
-        if (this.full_time) {
-            if (iTimetable.canBeTransferredTo(this.term.prevTerm(), true)) {
-                this.term = this.term.prevTerm();
-                return true;
-            }
-        } else {
-            if (iTimetable.canBeTransferredTo(this.term.prevTerm(), false)) {
-                this.term = this.term.prevTerm();
-                return true;
-            }
+    public Lesson laterTime() {
+        int d = this.term.getDuration();
+        int hour = this.term.getHour() + (d / 60);
+        int minute = this.term.getMinute() + (d % 60);
+        hour = hour + (minute / 60);
+        minute = minute % 60;
+
+        Day day = this.term.getDay();
+
+        Term newTerm = new Term(hour, minute, day);
+        newTerm.setDuration(d);
+
+        if(timetable.canBeTransferredTo(newTerm, full_time)) {
+            this.term.setDay(day);
+            this.term.setDuration(d);
+            this.term.setHour(hour);
+            this.term.setMinute(minute);
+            return this;
         }
-        return false;
+        throw new IllegalArgumentException();
+    }
+
+
+
+    public Lesson earlierTime() {
+        int d = this.term.getDuration();
+        int hour = this.term.getHour() - (d / 60);
+        int minute = this.term.getMinute() - (d % 60);
+        hour = hour + (minute / 60);
+        minute = minute % 60;
+        if(minute < 0) {
+            hour--;
+            minute = minute + 60;
+        }
+        Day day = this.term.getDay();
+        Term newTerm = new Term(hour, minute, day);
+        newTerm.setDuration(d);
+
+        if(timetable.canBeTransferredTo(newTerm, full_time)) {
+            this.term.setDay(day);
+            this.term.setDuration(d);
+            this.term.setHour(hour);
+            this.term.setMinute(minute);
+            return this;
+        }
+
+        throw new IllegalArgumentException();
     }
 
 
@@ -130,11 +147,11 @@ public class Lesson {
     }
 
     public ITimetable getiTimetable() {
-        return iTimetable;
+        return timetable;
     }
 
     public void setiTimetable(ITimetable iTimetable) {
-        this.iTimetable = iTimetable;
+        this.timetable = iTimetable;
     }
 
     @Override

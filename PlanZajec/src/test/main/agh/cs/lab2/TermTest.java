@@ -9,7 +9,7 @@ class TermTest {
     @Test
     void testToString() {
         Term term = new Term(9,45, Day.MON);
-        assertEquals(term.toString(), "9:45 [90]");
+        assertEquals(term.toString(), "9:45 [90]Poniedzialek");
     }
 
     @Test
@@ -27,14 +27,14 @@ class TermTest {
     @Test
     void endTerm() {
         Term term = new Term(9,45, Day.MON);
-        assertEquals(term.endTerm(new Term(10,15, Day.MON)).toString(), "9:45 [30]");
-        assertEquals(term.endTerm(new Term(11,15, Day.MON)).toString(), "9:45 [90]");
+        assertEquals(term.endTerm(new Term(10,15, Day.MON)).toString(), "9:45 [30]Poniedzialek");
+        assertEquals(term.endTerm(new Term(11,15, Day.MON)).toString(), "9:45 [90]Poniedzialek");
     }
 
     @Test
     void testEndTerm() {
         Term term = new Term(9,45, Day.MON);
-        assertEquals(term.endTerm().toString(), "11:15 [90]");
+        assertEquals(term.endTerm().toString(), "11:15 [90]Poniedzialek");
     }
 
     @Test
