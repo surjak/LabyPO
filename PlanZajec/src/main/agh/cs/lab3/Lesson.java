@@ -39,6 +39,7 @@ public class Lesson {
     }
 
 
+
     public Lesson earlierDay() {
         if(timetable.canBeTransferredTo(new Term(term.getHour(), term.getMinute(), term.getDay().prevDay()), full_time)) {
             this.term.setDay(term.getDay().prevDay());
