@@ -41,34 +41,32 @@ public abstract class AbstractTimetable implements ITimetable {
             lessons.add(lesson);
             return true;
         }
-        throw new IllegalArgumentException("Cannot transfer");
+//        throw new IllegalArgumentException("Cannot transfer");
+
+        return false;
     }
 
 
     @Override
     public void perform(Action[] actions) {
-
         int lessSize = lessons.size();
         for (int i = 0; i < actions.length; i++) {
             switch (actions[i]) {
                 case TIME_EARLIER:
                     lessons.get(i % lessSize).earlierTime();
-                    System.out.println(lessons.get(i % lessSize));
                     break;
                 case TIME_LATER:
                     lessons.get(i % lessSize).laterTime();
-                    System.out.println(lessons.get(i % lessSize));
                     break;
                 case DAY_EARLIER:
                     lessons.get(i % lessSize).earlierDay();
-                    System.out.println(lessons.get(i % lessSize));
                     break;
                 case DAY_LATER:
                     lessons.get(i % lessSize).laterDay();
-                    System.out.println(lessons.get(i % lessSize));
                     break;
             }
         }
+
 
 
     }
@@ -82,7 +80,7 @@ public abstract class AbstractTimetable implements ITimetable {
             }
         }
         if (l != null) return l;
-        throw new NoSuchElementException();
+        return null;
     }
 
     @Override
@@ -132,14 +130,18 @@ public abstract class AbstractTimetable implements ITimetable {
             }
             res += a;
             res += "*";
+
             for (day = firstDay; day.compareTo(lastDay) <= 0 && dayCount < 7; day = day.nextDay(), dayCount++) {
                 term.setDay(day);
                 res += "";
                 a = "";
-                if (this.busy(term)) {
-                    Lesson tmp = (Lesson) this.get(term);
+                Lesson tmp = (Lesson) this.get(term);
+                if (tmp!=null) {
                     a += tmp.getName();
+
                 }
+
+
                 while (a.length() < 12) {
                     a += " ";
                 }

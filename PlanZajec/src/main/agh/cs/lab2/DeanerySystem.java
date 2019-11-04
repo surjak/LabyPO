@@ -30,6 +30,7 @@ public class DeanerySystem {
             Action[] actions = new ActionParser().parse(args);
             Break[] breaks = {new Break(new BasicTerm(9,30,5))};
             ITimetable timetable = new Timetable2(breaks,false);
+//            ITimetable timetable = new Timetable1();
             Lesson l1 = new Lesson(timetable, new Term(8, 0, Day.TUE), "Angielski", "Nowak", 1);
             Lesson l2 = new Lesson(timetable, new Term(9, 35, Day.MON), "JTP", "Kowalski", 3);
             timetable.put(l1);
