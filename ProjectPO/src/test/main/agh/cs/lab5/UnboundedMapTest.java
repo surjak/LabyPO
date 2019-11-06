@@ -37,8 +37,8 @@ class UnboundedMapTest {
 
     @Test
     void place() {
-        assertFalse(iWorldMap.place(new Car(new Position(3,6),iWorldMap)));
-        assertFalse(iWorldMap.place(new Car(new Position(2,4),iWorldMap)));
+        assertThrows(IllegalArgumentException.class, ()->iWorldMap.place(new Car(new Position(3,6),iWorldMap)));
+        assertThrows(IllegalArgumentException.class, ()->iWorldMap.place(new Car(new Position(2,4),iWorldMap)));
         assertTrue(iWorldMap.place(new Car(new Position(1,100),iWorldMap)));
 
     }

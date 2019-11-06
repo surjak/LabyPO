@@ -31,7 +31,7 @@ class RectangularMapTest {
     @Test
     void place() {
         Car car = new Car(new Position(2, 2), map);
-        assertFalse(map.place(car));
+        assertThrows(IllegalArgumentException.class, ()->map.place(car));
         Car car1 = new Car(new Position(1, 1), map);
         assertTrue(map.place(car1));
     }

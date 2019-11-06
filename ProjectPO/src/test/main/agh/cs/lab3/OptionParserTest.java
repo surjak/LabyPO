@@ -15,12 +15,13 @@ class OptionParserTest {
 
     @Test
     void parseOneNull() {
-        assertEquals(OptionParser.parseOne("x"), null);
+        assertThrows(IllegalArgumentException.class,()->OptionParser.parseOne("x"));
+
     }
 
     @Test
     void parse() {
-        String[] strings = {"a", "f", "backward", "x", "left", "le", "f", "r"};
+        String[] strings = { "f", "backward", "left", "f", "r"};
         MoveDirection[] directions = {MoveDirection.FORWARD, MoveDirection.BACKWARD, MoveDirection.LEFT, MoveDirection.FORWARD, MoveDirection.RIGHT};
         MoveDirection[] directions1 = OptionParser.parse(strings);
         for (int i = 0; i < directions1.length; i++) {
