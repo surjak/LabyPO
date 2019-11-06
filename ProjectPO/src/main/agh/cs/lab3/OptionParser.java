@@ -1,6 +1,7 @@
 package main.agh.cs.lab3;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 
 public class OptionParser {
@@ -20,14 +21,14 @@ public class OptionParser {
             case "right":
                 return MoveDirection.RIGHT;
             default:
-                return null;
+                throw new IllegalArgumentException(a+ " is not legal move specification");
 
         }
     }
 
     public static MoveDirection[] parse(String[] args) {
 
-        return Arrays.stream(args).map(OptionParser::parseOne).filter(a -> a != null).toArray(MoveDirection[]::new);
+        return Arrays.stream(args).map(OptionParser::parseOne).filter(Objects::nonNull).toArray(MoveDirection[]::new);
 
     }
 }

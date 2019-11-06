@@ -18,8 +18,8 @@ public abstract class AbstractWorldMap implements IWorldMap {
         if (!this.isOccupied(car.getPosition())) {
             cars.add(car);
             return true;
-        }
-        return false;
+        }else throw new IllegalArgumentException("can't place car on this position: "+ car.getPosition() + ", because this position is occupied");
+
     }
 
     @Override
