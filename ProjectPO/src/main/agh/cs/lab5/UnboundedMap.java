@@ -64,16 +64,22 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
     @Override
     public String toString() {
         MapVisualizer mapVisualizer = new MapVisualizer(this);
-        int xMax = cars.get(0).getPosition().x;
-        int xMin = cars.get(0).getPosition().x;
-        int yMax = cars.get(0).getPosition().y;
-        int yMin = cars.get(0).getPosition().y;
-        for (Car car : cars) {
+        int xMax = carsObjects.get(0).getPosition().x;
+        int xMin = carsObjects.get(0).getPosition().x;
+        int yMax = carsObjects.get(0).getPosition().y;
+        int yMin = carsObjects.get(0).getPosition().y;
+        for (Car car : carsObjects) {
             if (car.getPosition().x < xMin) {
                 xMin = car.getPosition().x;
             } else if (car.getPosition().x > xMax) {
                 xMax = car.getPosition().x;
             }
+            if (car.getPosition().y < yMin) {
+                yMin = car.getPosition().y;
+            } else if (car.getPosition().y > yMax) {
+                yMax = car.getPosition().y;
+            }
+
         }
         for (HayStack hayStack : hayStackList) {
             if (hayStack.getPosition().x < xMin) {
@@ -81,22 +87,14 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
             } else if (hayStack.getPosition().x > xMax) {
                 xMax = hayStack.getPosition().x;
             }
-        }
-        //y
-        for (Car car : cars) {
-            if (car.getPosition().y < yMin) {
-                yMin = car.getPosition().y;
-            } else if (car.getPosition().y > yMax) {
-                yMax = car.getPosition().y;
-            }
-        }
-        for (HayStack hayStack : hayStackList) {
             if (hayStack.getPosition().y < yMin) {
                 yMin = hayStack.getPosition().y;
             } else if (hayStack.getPosition().y > yMax) {
                 yMax = hayStack.getPosition().y;
             }
         }
+     
         return mapVisualizer.draw(new Position(xMin, yMin), new Position(xMax, yMax));
+
     }
 }

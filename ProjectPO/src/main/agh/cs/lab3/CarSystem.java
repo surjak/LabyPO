@@ -30,9 +30,9 @@ public class CarSystem {
             hayStackArrayList.add(new HayStack(new Position(2, 0)));
             IWorldMap map1 = new UnboundedMap(hayStackArrayList);
             map1.place(new Car(map1));
-            Object obj1 = map1.objectAt(new Position(2, 2));
+//            Object obj1 = map1.objectAt(new Position(2, 2));
             map1.place(new Car(new Position(3, 4), map1));
-            map1.place(new Car(new Position(2, 0), map1));
+//            map1.place(new Car(new Position(2, 0), map1));
 
             map1.run(directions);
             System.out.println();

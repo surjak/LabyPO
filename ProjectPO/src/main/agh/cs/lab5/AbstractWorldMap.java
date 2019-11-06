@@ -5,33 +5,33 @@ import main.agh.cs.lab3.MoveDirection;
 import main.agh.cs.lab3.Position;
 import main.agh.cs.lab4.IWorldMap;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class AbstractWorldMap implements IWorldMap {
-    protected List<Car> cars = new ArrayList<>();
+    protected List<Car> carsObjects = new LinkedList<>();
+    protected Map<Position, Car> cars = new HashMap<>();
 
     @Override
     public boolean place(Car car) {
 
-        if (!this.isOccupied(car.getPosition())) {
-            cars.add(car);
+        if (!isOccupied(car.getPosition())) {
+            cars.put(car.getPosition(), car);
+            carsObjects.add(car);
             return true;
-        }else throw new IllegalArgumentException("can't place car on this position: "+ car.getPosition() + ", because this position is occupied");
+        } else
+            throw new IllegalArgumentException("can't place car on this position: " + car.getPosition() + ", because this position is occupied");
 
     }
 
     @Override
     public void run(MoveDirection[] directions) {
-        int carSize = cars.size();
-        for (int i = 0; i < directions.length; i++) {
-            cars.get(i % carSize).move(directions[i]);
-            System.out.println();
-//            System.out.print(cars.get(i % carSize).getPosition());
-//            System.out.print(cars.get(i % carSize));
-            System.out.println(this);
-
+        Car temp;
+        for (int i = 0; i < directions.length;i++ ) {
+           temp = carsObjects.get(i%carsObjects.size());
+           cars.remove(temp.getPosition());
+           temp.move(directions[i]);
+           cars.put(temp.getPosition(),temp);
 
         }
 
@@ -39,18 +39,11 @@ public abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean isOccupied(Position position) {
-        AtomicBoolean canPlace = new AtomicBoolean(false);
-        cars.forEach(car1 -> {
-            if (car1.getPosition().equals(position)) {
-                canPlace.set(true);
-            }
-        });
-
-        return canPlace.get();
+        return cars.get(position) != null;
     }
 
     @Override
     public Object objectAt(Position position) {
-        return cars.stream().filter(car -> car.getPosition().equals(position)).findFirst().orElse(null);
+        return cars.get(position);
     }
 }
