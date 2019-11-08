@@ -4,11 +4,12 @@ import main.agh.cs.lab3.Car;
 import main.agh.cs.lab3.MoveDirection;
 import main.agh.cs.lab3.Position;
 import main.agh.cs.lab4.IWorldMap;
+import main.agh.cs.lab6.IPositionChangeObserver;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class AbstractWorldMap implements IWorldMap {
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected List<Car> carsObjects = new LinkedList<>();
     protected Map<Position, Car> cars = new HashMap<>();
 
@@ -27,12 +28,9 @@ public abstract class AbstractWorldMap implements IWorldMap {
     @Override
     public void run(MoveDirection[] directions) {
         Car temp;
-        for (int i = 0; i < directions.length;i++ ) {
-           temp = carsObjects.get(i%carsObjects.size());
-           cars.remove(temp.getPosition());
-           temp.move(directions[i]);
-           cars.put(temp.getPosition(),temp);
-
+        for (int i = 0; i < directions.length; i++) {
+            temp = carsObjects.get(i%carsObjects.size());
+            temp.positionChanged(directions[i]);
         }
 
     }
@@ -45,5 +43,11 @@ public abstract class AbstractWorldMap implements IWorldMap {
     @Override
     public Object objectAt(Position position) {
         return cars.get(position);
+    }
+
+    @Override
+    public void positionChanged(Position oldPosition, Position newPosition) {
+        Car car = cars.remove(oldPosition);
+        cars.put(newPosition, car);
     }
 }

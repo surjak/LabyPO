@@ -93,7 +93,7 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
                 yMax = hayStack.getPosition().y;
             }
         }
-     
+
         return mapVisualizer.draw(new Position(xMin, yMin), new Position(xMax, yMax));
 
     }
