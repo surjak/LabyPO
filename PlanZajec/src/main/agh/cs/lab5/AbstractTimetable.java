@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 
 public abstract class AbstractTimetable implements ITimetable {
     protected ArrayList<Lesson> lessons = new ArrayList<>();
+    protected Map<Term, Lesson> lessonMap = new LinkedHashMap<>();
+
 
     @Override
     public boolean canBeTransferredTo(Term term, boolean full_time) {
@@ -27,9 +29,12 @@ public abstract class AbstractTimetable implements ITimetable {
 
     @Override
     public boolean busy(Term term) {
+        if (lessonMap.get(term) != null) return true;
+
         for (Lesson l : lessons) {
             if (term.getDay() == l.getTerm().getDay())
-                if ((!l.getTerm().earlierThan(term) && term.endTerm().laterThan(l.getTerm())) || (term.earlierThan(l.getTerm().endTerm()) && !l.getTerm().endTerm().laterThan(term.endTerm())))
+                if ((!l.getTerm().earlierThan(term) && term.endTerm().laterThan(l.getTerm()))
+                        || (term.earlierThan(l.getTerm().endTerm()) && !l.getTerm().endTerm().laterThan(term.endTerm())))
                     return true;
         }
         return false;
@@ -39,11 +44,10 @@ public abstract class AbstractTimetable implements ITimetable {
     public boolean put(Lesson lesson) {
         if (canBeTransferredTo(lesson.getTerm(), lesson.isFull_time())) {
             lessons.add(lesson);
+            lessonMap.put(lesson.getTerm(), lesson);
             return true;
         }
-//        throw new IllegalArgumentException("Cannot transfer");
-
-        return false;
+        throw new IllegalArgumentException("Cannot transfer");
     }
 
 
@@ -53,34 +57,38 @@ public abstract class AbstractTimetable implements ITimetable {
         for (int i = 0; i < actions.length; i++) {
             switch (actions[i]) {
                 case TIME_EARLIER:
-                    lessons.get(i % lessSize).earlierTime();
+                    Lesson lesson = lessons.get(i % lessSize);
+                    lessonMap.remove(lesson.getTerm());
+                    lesson.earlierTime();
+                    lessonMap.put(lesson.getTerm(), lesson);
                     break;
                 case TIME_LATER:
-                    lessons.get(i % lessSize).laterTime();
+                    Lesson lesson2 = lessons.get(i % lessSize);
+                    lessonMap.remove(lesson2.getTerm());
+                    lesson2.laterTime();
+                    lessonMap.put(lesson2.getTerm(), lesson2);
                     break;
                 case DAY_EARLIER:
-                    lessons.get(i % lessSize).earlierDay();
+                    Lesson lesson3 = lessons.get(i % lessSize);
+                    lessonMap.remove(lesson3.getTerm());
+                    lesson3.earlierDay();
+                    lessonMap.put(lesson3.getTerm(), lesson3);
                     break;
                 case DAY_LATER:
-                    lessons.get(i % lessSize).laterDay();
+                    Lesson lesson4 = lessons.get(i % lessSize);
+                    lessonMap.remove(lesson4.getTerm());
+                    lesson4.laterDay();
+                    lessonMap.put(lesson4.getTerm(), lesson4);
                     break;
             }
         }
-
 
 
     }
 
     @Override
     public Object get(Term term) {
-        Lesson l = null;
-        for (Lesson lesson: lessons){
-            if (lesson.getTerm().equals(term)){
-                l=lesson;
-            }
-        }
-        if (l != null) return l;
-        return null;
+        return lessonMap.get(term);
     }
 
     @Override
@@ -136,7 +144,7 @@ public abstract class AbstractTimetable implements ITimetable {
                 res += "";
                 a = "";
                 Lesson tmp = (Lesson) this.get(term);
-                if (tmp!=null) {
+                if (tmp != null) {
                     a += tmp.getName();
 
                 }

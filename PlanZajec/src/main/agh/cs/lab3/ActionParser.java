@@ -17,7 +17,7 @@ public class ActionParser {
             case "t+":
                 return Action.TIME_LATER;
             default:
-                return null;
+                throw new IllegalArgumentException("Translation" + a + "is incorrect");
 
         }
     }

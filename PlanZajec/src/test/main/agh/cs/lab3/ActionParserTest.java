@@ -18,7 +18,7 @@ class ActionParserTest {
 
     @Test
     void parse() {
-        String[] changeLesson = {"d+", "t+", "aaa", "dd", "d-", "t-"};
+        String[] changeLesson = {"d+", "t+", "d-", "t-"};
         Action[] actions = {Action.DAY_LATER, Action.TIME_LATER, Action.DAY_EARLIER, Action.TIME_EARLIER};
         assertTrue(Arrays.equals(actions, actionParser.parse(changeLesson)));
     }

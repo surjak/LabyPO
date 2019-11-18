@@ -28,7 +28,7 @@ public class DeanerySystem {
 //            System.out.println(programowanieObiektowe);
 
             Action[] actions = new ActionParser().parse(args);
-            Break[] breaks = {new Break(new BasicTerm(9,30,5)), new Break(new BasicTerm(11,5,10))};
+            Break[] breaks = {new Break(new BasicTerm(9,30,5)), new Break(new BasicTerm(11,5,10)), new Break(new BasicTerm(12,45,5))};
             ITimetable timetable = new Timetable2(breaks,false);
 //            ITimetable timetable = new Timetable1();
             Lesson l1 = new Lesson(timetable, new Term(8, 0, Day.TUE), "Angielski", "Nowak", 1);

@@ -115,7 +115,7 @@ public class Timetable2 extends AbstractTimetable implements ITimetable {
                     a = "";
                     if (this.overlapOnBreak(term)) {
                         Break br = this.getBreak(term);
-                        term = new Term(br.getTerm().hour, br.getTerm().minute, br.getTerm().duration,day);
+                        term = new Term(br.getTerm().hour, br.getTerm().minute, br.getTerm().duration, day);
                         String d = "";
                         while (d.length() < 12) {
                             d += "-";
@@ -123,12 +123,12 @@ public class Timetable2 extends AbstractTimetable implements ITimetable {
                         a += d;
                     } else if (this.busy(term)) {
                         Lesson tmp = (Lesson) this.get(term);
-                        if (tmp!=null){
-                            term = new Term(tmp.getTerm().getHour(), tmp.getTerm().minute,tmp.getTerm().duration,tmp.getTerm().getDay());
+                        if (tmp != null) {
+                            term = new Term(tmp.getTerm().getHour(), tmp.getTerm().minute, tmp.getTerm().duration, tmp.getTerm().getDay());
                             a += tmp.getName();
                         }
 
-                    }else{
+                    } else {
                         term.setDuration(90);
 
                     }
@@ -148,10 +148,10 @@ public class Timetable2 extends AbstractTimetable implements ITimetable {
                 res += "\n";
 
 
-
             }
             lessons.forEach(lesson -> System.out.println(lesson));
             return res;
+//            return "";
         }
     }
 }
